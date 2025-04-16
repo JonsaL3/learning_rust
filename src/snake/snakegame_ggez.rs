@@ -62,7 +62,7 @@ impl SnakeGameGGEZ {
 
         // Construimos el uadrado y lo pintamos en las coordenadas concretas del canvas con el tamaño
         // especificado -1 para ver la cuadricula.
-        let rect = graphics::Rect::new(
+        let rect = graphics::Rect::new( tengo que optimizarlo repintando los meshes guardandomelos en el estado.
             self.tamano_celda - 1.0, 
             self.tamano_celda - 1.0,
             self.tamano_celda - 1.0, 
