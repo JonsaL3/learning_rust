@@ -5,7 +5,7 @@ use ggez::event;
 use ggez::graphics::{self, Color};
 use ggez::{Context, GameResult};
 use ggez::glam::*;
-use ggez::input::keyboard::{KeyCode, KeyMods, KeyInput};
+use ggez::input::keyboard::{KeyCode, KeyInput};
 
 /**
  * Estados de lo que hay en pantalla, todo lo que compone nuestro juego, estados, etc
@@ -26,7 +26,7 @@ struct SnakeGameGGEZ {
 impl SnakeGameGGEZ {
     fn new() -> GameResult<SnakeGameGGEZ> {
         let _snake_game = SnakeGameGGEZ {
-            snake: snake::Snake::new((20, 20), (10, 10), (2, 2)),
+            snake: snake::Snake::new((10, 10), (5, 5), (2, 2)),
             tamano_celda: 20.0,
             ultima_tecla_pulsada: Some(KeyCode::Down), // Por defecto bajara la serpiente),
             acumulador: 0.0,
@@ -92,9 +92,11 @@ impl SnakeGameGGEZ {
         &self,
         ctx: &mut Context, 
         canvas: &mut graphics::Canvas, 
-        tablero: snake::tablero::Tablero, 
         tamano_celda: f32
     ) -> GameResult {
+
+        // Obtenemos el tablero
+        let tablero = self.snake.get_tablero();
         // Obtenemos el tamaño del tablero
         let (filas, columnas) = tablero.get_tamano();
 
@@ -136,8 +138,10 @@ impl event::EventHandler<ggez::GameError> for SnakeGameGGEZ {
     
         // si el tiempo transcurrido es igual a nuestro intervalo (0.3s en nuestro caso) ejecutamos un tick
         if self.acumulador >= self.intervalo {
-            // aqui es donde se ejecuta el tick
-            println!("Tick!:");
+            // obtenemos los fps para pintarlos cada tick por consola
+            // Aquí puedes, por ejemplo, imprimir los FPS en la consola
+            let current_fps = _ctx.time.fps();
+            println!("Tick .. FPS: {}", current_fps);
 
             // todo aqui iran cosas
             match self.ultima_tecla_pulsada {
@@ -172,7 +176,7 @@ impl event::EventHandler<ggez::GameError> for SnakeGameGGEZ {
         );
 
         // y pintamos el tablero en el estado en el que se encuentre
-        self.draw_tablero(ctx, &mut canvas, self.snake.get_tablero(), self.tamano_celda)?;
+        self.draw_tablero(ctx, &mut canvas, self.tamano_celda)?;
 
         // Pintamos el canvas
         canvas.finish(ctx)

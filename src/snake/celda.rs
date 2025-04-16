@@ -1,5 +1,4 @@
-#[derive(Debug)]
-#[derive(Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub enum Celda {
     Vacio,
     Serpiente,

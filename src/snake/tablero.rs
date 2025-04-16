@@ -20,6 +20,7 @@ impl Tablero {
         let mut m_tablero: Vec<Vec<celda::Celda>> = vec![vec![celda::Celda::Vacio; tamano_cuadricula.0]; tamano_cuadricula.1];
         // Seteamos la celda de la serpiente y la fruta.
         m_tablero[pos_inicial_serpiente.0][pos_inicial_serpiente.1] = celda::Celda::Serpiente;
+        m_tablero[pos_inicial_fruta.0][pos_inicial_fruta.1] = celda::Celda::Fruta;
         
         // Construimos el tablero.
         Tablero { tablero: m_tablero }
